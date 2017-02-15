@@ -1,0 +1,18 @@
+{
+  "nodes": [
+    {
+      "mac": [
+        "<<provisioning_mac_address_here>>"
+      ],
+      "cpu": "<<number_of_cores>>",
+      "memory": "<<memory_in_mb>>",
+      "disk": "<<disk_in_gb>>",
+      "arch": "x86_64",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "<<ipmi_user>>",
+      "pm_password": "<<ipmi_password>>",
+      "pm_addr": "<<ipmi_address>>"
+    }
+ ]
+}
+

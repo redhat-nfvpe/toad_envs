@@ -1,0 +1,23 @@
+parameter_defaults:
+    InternalApiNetCidr: 172.17.1.0/24
+    StorageNetCidr: 172.17.3.0/24
+    StorageMgmtNetCidr: 172.17.4.0/24
+    TenantNetCidr: 172.17.2.0/24
+    ExternalNetCidr: <<external_ip_cidr>>
+    InternalApiAllocationPools: [{'start': '172.17.1.10', 'end': '172.17.1.200'}]
+    StorageAllocationPools: [{'start': '172.17.3.10', 'end': '172.17.3.200'}]
+    StorageMgmtAllocationPools: [{'start': '172.17.4.10', 'end': '172.17.4.200'}]
+    TenantAllocationPools: [{'start': '172.17.2.10', 'end': '172.17.2.200'}]
+    ExternalAllocationPools: [{'start': '<<external_ip_range_start>>', 'end': '<<external_ip_range_end>>'}]
+    ExternalInterfaceDefaultRoute: <<external_ip_gateway>>
+    InternalApiNetworkVlanID: 2001
+    StorageNetworkVlanID: 2002
+    StorageMgmtNetworkVlanID: 2003
+    ExternalNetworkVlanID: <<external_vlan_tag>>
+    TenantNetworkVlanID: 2004
+    NeutronExternalNetworkBridge: "''"
+    ControlPlaneSubnetCidr: "24"
+    ControlPlaneDefaultRoute: 172.31.255.1
+    EC2MetadataIp: 172.31.255.1
+    DnsServers: ["<<dns_server_1>>", "<<dns_server_2>>",]
+

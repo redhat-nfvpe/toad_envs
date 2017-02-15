@@ -1,0 +1,66 @@
+environment_type: cira
+hw_env: cira
+
+undercloud_network_cidr: 172.31.255.0/24
+undercloud_local_ip: 172.31.255.1/24
+undercloud_network_gateway: 172.31.255.1
+undercloud_undercloud_public_vip: 172.31.255.2
+undercloud_undercloud_admin_vip: 172.31.255.3
+undercloud_local_interface: eth1
+undercloud_masquerade_network: 172.31.255.0/24
+undercloud_dhcp_start: 172.31.255.105
+undercloud_dhcp_end: 172.31.255.124
+undercloud_inspection_iprange: 172.31.255.200,172.31.255.220
+
+virthost_provisioning_interface: <<nic_for_provision_on_the_virthost>>
+virthost_provisioning_ip: 172.31.255.125
+virthost_provisioning_netmask: 255.255.255.0
+virthost_provisioning_hwaddr: <<mac_address_for_provision_on_the_virthost>>
+virthost_ext_provision_interface: <<external_nic_on_the_virthost>>
+
+undercloud_instackenv_template: "{{ jenkins_workspace }}/toad_envs/{{ hw_env }}/instackenv.json"
+overcloud_nodes:
+undercloud_type: virtual
+step_introspect: true
+introspect: true
+network_environment_file: "{{ jenkins_workspace }}/toad_envs/{{ hw_env }}/net_environment.yml"
+
+network_isolation_type: single_nic_vlans
+network_isolation: true
+enable_vbmc: false
+external_network_cidr: 192.168.23.0/24
+
+networks:
+  - name: external
+    bridge: brext
+    forward_mode: nat
+    address: "{{ external_network_cidr|nthhost(1) }}"
+    netmask: "{{ external_network_cidr|ipaddr('netmask') }}"
+    dhcp_range:
+      - "{{ external_network_cidr|nthhost(10) }}"
+      - "{{ external_network_cidr|nthhost(50) }}"
+    nat_port_range:
+      - 1024
+      - 65535
+
+  - name: overcloud
+    bridge:  brovc
+    phys_int: <<nic_for_provision_on_the_virthost>>
+
+undercloud_networks:
+  external:
+    address: <<undercloud_desired_external_ip_address>>
+    netmask: <<external_ip_range>>
+    device_type: ovs
+    type: OVSIntPort
+    ovs_bridge: br-ctlplane
+    ovs_options: '"tag=<<external_vlan_tag>>"'
+    tag: <<external_vlan_tag>>
+
+network_isolation_ipv4_cidr: <<external_ip_cidr>>
+undercloud_external_network_cidr: <<external_ip_cidr>>
+
+floating_ip_cidr: <<floating_ip_cidr>>
+floating_ip_start: <<floating_ip_start>>
+floating_ip_end: <<floating_ip_end>>
+external_network_gateway: <<external_network_gateway>>
