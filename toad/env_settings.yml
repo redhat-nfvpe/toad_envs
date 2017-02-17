@@ -47,16 +47,7 @@ networks:
     bridge:  brovc
     phys_int: <<nic_for_provision_on_the_virthost>>
 
-undercloud_networks:
-  external:
-    address: <<undercloud_desired_external_ip_address>>
-    netmask: <<external_ip_range>>
-    device_type: ovs
-    type: OVSIntPort
-    ovs_bridge: br-ctlplane
-    ovs_options: '"tag=<<external_vlan_tag>>"'
-    tag: <<external_vlan_tag>>
-
+undercloud_networks: {}
 network_isolation_ipv4_cidr: <<external_ip_cidr>>
 undercloud_external_network_cidr: <<external_ip_cidr>>
 
