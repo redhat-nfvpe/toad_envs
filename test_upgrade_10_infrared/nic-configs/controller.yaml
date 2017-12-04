@@ -124,8 +124,7 @@ resources:
 
             -
               type: ovs_bridge
-              name: br-all
-              use_dhcp: false
+              name: br-isolated
               dns_servers: {get_param: DnsServers}
               addresses:
                 -
@@ -167,3 +166,4 @@ outputs:
   OS::stack_id:
     description: The OsNetConfigImpl resource.
     value: {get_resource: OsNetConfigImpl}
+

@@ -9,6 +9,12 @@
           name: br-vlan
           forward: bridge
           nic: p5p2
+      net3:
+          name: br-link
+          forward: bridge
+          nic: em1
+          ip_address: 10.9.88.22
+          netmask: 255.255.255.0
       net4:
           external_connectivity: yes
           name: "management"
@@ -24,4 +30,3 @@
           floating_ip:
               start: "172.16.0.101"
               end: "172.16.0.150"
-
